@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Credenciais ###
-src/main/resources/portal
+src/main/resources/application.properties
