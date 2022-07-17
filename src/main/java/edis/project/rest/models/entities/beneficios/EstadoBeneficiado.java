@@ -1,4 +1,4 @@
-package edis.project.rest.models.entities.ibge;
+package edis.project.rest.models.entities.beneficios;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -10,23 +10,11 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Estado {
-
-    @JsonProperty("id")
-    private Long id;
-
+public class EstadoBeneficiado {
     @JsonProperty("nome")
     private String nome;
-
-    @JsonProperty("regiao")
-    private Regiao regiao;
 
     @JsonProperty("sigla")
     @Size(max = 2)
     private String sigla;
-
-    public Estado(String nome, String sigla){
-        this.nome = nome;
-        this.sigla = sigla;
-    }
 }

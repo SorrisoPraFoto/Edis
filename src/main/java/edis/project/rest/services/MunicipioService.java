@@ -9,9 +9,5 @@ import java.io.IOException;
 
 @Service
 public interface MunicipioService {
-    /*
-        Função bsearch básica com string para buscar no JSON de municípios
-     */
-    public int binarySearch(Municipio[] municipios, String m);
     public ResponseEntity<Municipio> getMunicipio(@RequestParam String municipio) throws IOException, InterruptedException;
 }

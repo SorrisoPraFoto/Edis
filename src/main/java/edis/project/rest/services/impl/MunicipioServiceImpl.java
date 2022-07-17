@@ -15,7 +15,7 @@ import java.net.http.HttpResponse;
 
 @Service
 public class MunicipioServiceImpl implements MunicipioService {
-    public int binarySearch(Municipio[] municipios, String m) {
+    private int binarySearch(Municipio[] municipios, String m) {
         int low = 0;
         int high = municipios.length - 1;
         int mid;

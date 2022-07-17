@@ -1,6 +1,8 @@
 package edis.project.rest.controller;
 
+import edis.project.rest.models.entities.beneficios.Beneficio;
 import edis.project.rest.models.entities.ibge.Municipio;
+import edis.project.rest.services.BeneficioService;
 import edis.project.rest.services.MunicipioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,14 @@ public class AuxilioEmergencialController {
     @Autowired
     private MunicipioService municipioService;
 
+    @Autowired
+    private BeneficioService beneficioService;
+
     @GetMapping
-    public ResponseEntity<Municipio> getMunicipioByNome(@RequestParam("municipio") String municipio) throws IOException, InterruptedException {
-        return municipioService.getMunicipio(municipio);
+    public ResponseEntity<Beneficio> getByMunicipio(@RequestParam("municipio") String municipio,
+                                                    @RequestParam("mesAno") int mesAno,
+                                                    @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
+        ResponseEntity<Municipio> municipioEncontrado = municipioService.getMunicipio(municipio);
+        return beneficioService.getByMunicipio(municipioEncontrado.getBody(), "auxilio-emergencial-por-municipio", mesAno, pagina);
     }
 }
