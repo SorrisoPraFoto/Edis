@@ -1,5 +1,6 @@
 package edis.project.rest.controller;
 
+import edis.project.rest.models.entities.beneficios.BeneficiarioRegistro;
 import edis.project.rest.models.entities.beneficios.Beneficio;
 import edis.project.rest.models.entities.ibge.Municipio;
 import edis.project.rest.services.BeneficioService;
@@ -28,5 +29,13 @@ public class AuxilioEmergencialController {
                                                     @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
         ResponseEntity<Municipio> municipioEncontrado = municipioService.getMunicipio(municipio);
         return beneficioService.getByMunicipio(municipioEncontrado.getBody(), "auxilio-emergencial-por-municipio", mesAno, pagina);
+    }
+
+    @GetMapping(path = "beneficiarios")
+    public ResponseEntity<BeneficiarioRegistro> getBeneficiariosByMunicipio(@RequestParam("municipio") String municipio,
+                                                                            @RequestParam("mesAno") int mesAno,
+                                                                            @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
+        ResponseEntity<Municipio> municipioEncontrado = municipioService.getMunicipio(municipio);
+        return beneficioService.getBeneficiariosByMunicipio(municipioEncontrado.getBody(), "auxilio-emergencial-beneficiario-por-municipio", mesAno, pagina);
     }
 }
