@@ -5,16 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class RegiaoImediata {
+public class Mesorregiao {
     @JsonProperty("id")
     private Long id;
 
     @JsonProperty("nome")
     private String nome;
 
-    @JsonProperty("regiao-intermediaria")
-    private RegiaoIntermediaria regiaoIntermediaria;
+    @JsonProperty("UF")
+    private Estado estado;
 }
