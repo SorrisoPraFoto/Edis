@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 
 @Controller
-@RequestMapping(value = "/auxilio-emergencial")
-public class AuxilioEmergencialController {
+@RequestMapping(value = "/bolsa-familia")
+public class BolsaFamiliaController {
     @Autowired
     private MunicipioService municipioService;
 
@@ -33,12 +33,12 @@ public class AuxilioEmergencialController {
     public ResponseEntity<Beneficio> getByMunicipio(@RequestParam("municipio") String municipio,
                                                     @RequestParam("mesAno") int mesAno,
                                                     @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
-        Municipio municipioEncontrado = municipioService.getMunicipio(municipio).getBody();
-        JavaType type = mapper.getTypeFactory().constructArrayType(AuxEmergencial.class);
-        return beneficioService.getByMunicipio(type, municipioEncontrado, "auxilio-emergencial-por-municipio", mesAno, pagina);
+        ResponseEntity<Municipio> municipioEncontrado = municipioService.getMunicipio(municipio);
+        JavaType type = mapper.getTypeFactory().constructArrayType(Beneficio.class);
+        return beneficioService.getByMunicipio(type, municipioEncontrado.getBody(), "bolsa-familia-disponivel-beneficiario-por-municipio", mesAno, pagina);
     }
 
-    @GetMapping(path = "/beneficiarios")
+    @GetMapping(path = "beneficiarios")
     public ResponseEntity<BeneficiarioRegistro> getBeneficiariosByMunicipio(@RequestParam("municipio") String municipio,
                                                                             @RequestParam("mesAno") int mesAno,
                                                                             @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
@@ -46,11 +46,11 @@ public class AuxilioEmergencialController {
         return beneficioService.getBeneficiariosByMunicipio(municipioEncontrado.getBody(), "auxilio-emergencial-beneficiario-por-municipio", mesAno, pagina);
     }
 
-    @GetMapping(path = "/beneficiarios-por-codigo")
+    @GetMapping(path = "beneficiarios-por-codigo")
     public ResponseEntity<BeneficiarioRegistro> getBeneficiariosByCodigo(@RequestParam(name = "codigoBeneficiario") String codigoBeneficiario,
-                                                                            @RequestParam(name = "codigoBeneficiario", required = false) String codigoResponsavelFamiliar,
-                                                                            @RequestParam("mesAno") int mesAno,
-                                                                            @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
+                                                                         @RequestParam(name = "codigoBeneficiario", required = false) String codigoResponsavelFamiliar,
+                                                                         @RequestParam("mesAno") int mesAno,
+                                                                         @RequestParam("pagina") int pagina) throws IOException, InterruptedException {
         return beneficioService.getBeneficiariosByCodigo(codigoBeneficiario, codigoResponsavelFamiliar, "auxilio-emergencial-por-cpf-ou-nis", mesAno, pagina);
     }
 }
